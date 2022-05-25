@@ -2,3 +2,5 @@
 *.mat
 *.jld2
 *.gif
+.DS_Store
+.ipynb_checkpoints
