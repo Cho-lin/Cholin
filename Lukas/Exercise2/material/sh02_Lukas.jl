@@ -5,6 +5,7 @@ using ImageFiltering
 using ImageView
 using Plots
 using TestImages
+using LinearAlgebra
 
 
 function lgn(
@@ -21,8 +22,8 @@ function lgn(
     V_0 = -6,
 )
     filter_cs = Main.Utils.customDoG(σ_c, σ_s, k)
-    L = imfilter(stimulus, reflect(filter_cs))
-    L_norm = Main.Utils.normalize(L)
+    L_norm = imfilter(stimulus, reflect(filter_cs))
+    # L_norm = Main.Utils.normalize(L)
 
     H = Main.Utils.customDoG(σ_u, σ_d, k_d)
 
@@ -30,15 +31,10 @@ function lgn(
     Gsf = Kernel.gaussian(σ_sf)
 
     # Calculate c_local
-    #f = buf->sqrt(sum((imfilter(buf, reflect(H)) .^ 2) .* parent(Gsf)))
-    f = buf->(imfilter(buf, reflect(H)) .^ 2) * parent(Gsf)
-    # c_locals = mapwindow(f, stimulus, size(Gsf))
-    c_local = sqrt(sum(mapwindow(f, stimulus, size(Gsf))))
-    print(size(c_local))
+    f = buf->sqrt(sum(dot((imfilter(buf, reflect(H)) .^ 2), parent(Gsf))))
+    c_local = Main.Utils.normalize(mapwindow(f, stimulus, size(Gsf)))
 
-    # c_local = sqrt(sum((imfilter(stimulus, reflect(H)) .^ 2) .* parent(Gsf)))
-
-    V = Vmax .* (L_norm ./ (c50 + c_local))
+    V = Vmax * (L_norm ./ (c50 .+ c_local))
 
     return max.(V .- V_0, 0)
 end
@@ -54,32 +50,32 @@ p_out = plot(Gray.(Main.Utils.normalize(out)), title = "Response")
 plot(p_in, p_out, layout = (1, 2))
 
 
-# # Plot response strength (varying radius)
-# rads = [0.5, 1, 2, 4, 8, 16]
-# outputs = Array{Float64}(undef, length(rads))
-#
-# for i in 1:length(rads)
-#     stimulus = Main.Utils.stimulus(radius=rads[i]*Main.Utils.ppd)
-#     out = lgn(stimulus, Vmax=128.0, V_0=-2)
-#     outputs[i] = maximum(out)
-# end
-#
-# p1 = plot(collect(zip(rads, outputs)),
-#  title="Response Strenght", label=false)
-#
-#
-# # Plot response strength (varying contrast)
-# contrasts = [0.01, 0.25, 0.50, 0.75, 1.0]
-# contrasts = collect(range(0, 1, 26))
-# outputs = Array{Float64}(undef, length(contrasts))
-#
-# for i in 1:length(contrasts)
-#     stimulus = Main.Utils.stimulus(contrast=contrasts[i])
-#     out = lgn(stimulus, Vmax=128.0, V_0=-2)
-#     outputs[i] = maximum(out)
-# end
-#
-# p2 = plot(collect(zip(contrasts, outputs)),
-#  title="Response Strenght", label=false)
-#
-# plot(p1, p2, layout=(2, 1))
+# Plot response strength (varying radius)
+rads = [0.5, 1, 2, 4, 8, 16]
+outputs = Array{Float64}(undef, length(rads))
+
+for i in 1:length(rads)
+    stimulus = Main.Utils.stimulus(radius=rads[i]*Main.Utils.ppd)
+    out = lgn(stimulus, Vmax=128.0, V_0=-2)
+    outputs[i] = maximum(out)
+end
+
+p1 = plot(collect(zip(rads, outputs)),
+ title="Response Strenght (radius)", label=false)
+
+
+# Plot response strength (varying contrast)
+contrasts = [0.01, 0.25, 0.50, 0.75, 1.0]
+contrasts = collect(range(0, 1, 26))
+outputs = Array{Float64}(undef, length(contrasts))
+
+for i in 1:length(contrasts)
+    stimulus = Main.Utils.stimulus(contrast=contrasts[i])
+    out = lgn(stimulus, Vmax=128.0, V_0=-2)
+    outputs[i] = maximum(out)
+end
+
+p2 = plot(collect(zip(contrasts, outputs)),
+ title="Response Strenght (contrast)", label=false)
+
+plot(p1, p2, layout=(2, 1))
