@@ -1,4 +1,5 @@
 *.pdf
+*.svg
 *.mat
 *.jld2
 *.gif

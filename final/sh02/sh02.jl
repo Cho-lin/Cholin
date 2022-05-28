@@ -42,7 +42,9 @@ function lgn(
     return max.(V .- V_0, 0)
 end
 
-
+#################
+#  Exercise 1   #
+#################
 stimulus = Main.Utils.stimulus()
 # stimulus = testimage("cameraman")
 p_in = plot(Gray.(stimulus), title = "Stimulus")
@@ -51,6 +53,7 @@ out = lgn(stimulus)
 p_out = plot(Gray.(Main.Utils.normalize(out)), title = "Response")
 
 plot(p_in, p_out, layout = (1, 2))
+savefig("./stim-resp.svg")
 
 
 # Plot response strength (varying radius)
@@ -63,9 +66,7 @@ for i in 1:length(rads)
     outputs[i] = maximum(out)
 end
 
-p1 = plot(collect(zip(rads, outputs)),
- title="Response Strenght (radius)", label=false)
-
+p1 = plot(collect(zip(rads, outputs)), xlabel="Diameter [deg]", ylabel="Response [spikes/s]", label=false)
 
 # Plot response strength (varying contrast)
 contrasts = [0.01, 0.25, 0.50, 0.75, 1.0]
@@ -78,15 +79,13 @@ for i in 1:length(contrasts)
     outputs[i] = maximum(out)
 end
 
-p2 = plot(collect(zip(contrasts, outputs)),
- title="Response Strenght (contrast)", label=false)
+p2 = plot(collect(zip(contrasts.*100, outputs)), xlabel="Contrast [%]", ylabel="Response [spikes/s]", label=false)
 
-plot(p1, p2, layout=(2, 1))
+plot(p1, p2, layout=(2, 1), plot_title="Response Strength")
+savefig("./response-strength.svg")
 
 #################
-#               #
 #  Exercise 2   #
-#               #
 #################
 img = testimage("lake")
 stimulus = Gray.(img)
