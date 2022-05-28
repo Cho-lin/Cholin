@@ -56,17 +56,17 @@ plot(p_in, p_out, layout = (1, 2))
 savefig("./stim-resp.svg")
 
 
-# Plot response strength (varying radius)
-rads = [0.5, 1, 2, 4, 8, 16]
-outputs = Array{Float64}(undef, length(rads))
+# Plot response strength (varying diameter)
+outline_diameter = [0.5, 1, 2, 4, 8, 16]
+outputs = Array{Float64}(undef, length(outline_diameter))
 
-for i in 1:length(rads)
-    stimulus = Main.Utils.stimulus(radius=rads[i]*Main.Utils.ppd)
+for i in 1:length(outline_diameter)
+    stimulus = Main.Utils.stimulus(radius=0.5*outline_diameter[i]*Main.Utils.ppd)
     out = lgn(stimulus, Vmax=128.0, V_0=-2)
     outputs[i] = maximum(out)
 end
 
-p1 = plot(collect(zip(rads, outputs)), xlabel="Diameter [deg]", ylabel="Response [spikes/s]", label=false)
+p1 = plot(collect(zip(outline_diameter, outputs)), xlabel="Diameter [deg]", ylabel="Response [spikes/s]", label=false)
 
 # Plot response strength (varying contrast)
 contrasts = [0.01, 0.25, 0.50, 0.75, 1.0]
