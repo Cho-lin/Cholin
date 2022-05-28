@@ -1,3 +1,4 @@
+using Pkg
 Pkg.activate(".")
 include("utils.jl")
 
@@ -7,7 +8,9 @@ using Plots
 using TestImages
 using LinearAlgebra
 
-
+"""
+    Model of the LGN
+"""
 function lgn(
     stimulus;
     σ_c = 0.5,
@@ -31,7 +34,7 @@ function lgn(
     Gsf = Kernel.gaussian(σ_sf)
 
     # Calculate c_local
-    f = buf->sqrt(sum(dot((imfilter(buf, reflect(H)) .^ 2), parent(Gsf))))
+    f = buf->sqrt(sum(dot(Gray.(imfilter(buf, reflect(H)).^2), Gray.(parent(Gsf)))))
     c_local = Main.Utils.normalize(mapwindow(f, stimulus, size(Gsf)))
 
     V = Vmax * (L ./ (c50 .+ c_local))
