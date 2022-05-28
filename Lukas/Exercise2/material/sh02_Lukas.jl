@@ -22,7 +22,7 @@ function lgn(
     V_0 = -6,
 )
     filter_cs = Main.Utils.customDoG(σ_c, σ_s, k)
-    L_norm = imfilter(stimulus, reflect(filter_cs))
+    L = imfilter(stimulus, reflect(filter_cs))
     # L_norm = Main.Utils.normalize(L)
 
     H = Main.Utils.customDoG(σ_u, σ_d, k_d)
@@ -34,7 +34,7 @@ function lgn(
     f = buf->sqrt(sum(dot((imfilter(buf, reflect(H)) .^ 2), parent(Gsf))))
     c_local = Main.Utils.normalize(mapwindow(f, stimulus, size(Gsf)))
 
-    V = Vmax * (L_norm ./ (c50 .+ c_local))
+    V = Vmax * (L ./ (c50 .+ c_local))
 
     return max.(V .- V_0, 0)
 end
@@ -79,3 +79,12 @@ p2 = plot(collect(zip(contrasts, outputs)),
  title="Response Strenght (contrast)", label=false)
 
 plot(p1, p2, layout=(2, 1))
+
+
+# Exercise 2
+img = testimage("lake")
+img = Gray.(img)
+
+img_response = lgn(img)
+
+imshow(img_response)
