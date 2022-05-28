@@ -23,11 +23,9 @@ function lgn(
 )
     filter_cs = Main.Utils.customDoG(σ_c, σ_s, k)
     L = imfilter(stimulus, reflect(filter_cs))
-    # L_norm = Main.Utils.normalize(L)
 
     H = Main.Utils.customDoG(σ_u, σ_d, k_d)
 
-    #Gsf = Kernel.gaussian((σ_sf, σ_sf), size(stimulus))
     Gsf = Kernel.gaussian(σ_sf)
 
     # Calculate c_local
@@ -40,6 +38,11 @@ function lgn(
 end
 
 
+#################
+#               #
+#  Exercise 1   #
+#               #
+#################
 stimulus = Main.Utils.stimulus()
 # stimulus = testimage("cameraman")
 p_in = plot(Gray.(stimulus), title = "Stimulus")
@@ -81,10 +84,24 @@ p2 = plot(collect(zip(contrasts, outputs)),
 plot(p1, p2, layout=(2, 1))
 
 
-# Exercise 2
+#################
+#               #
+#  Exercise 2   #
+#               #
+#################
 img = testimage("lake")
-img = Gray.(img)
+stimulus = Gray.(img)
 
-img_response = lgn(img)
+p_in = plot(stimulus, title = "Stimulus")
 
-imshow(img_response)
+out = lgn(Float64.(stimulus))
+p_out = plot(Gray.(Main.Utils.normalize(out)), title = "Response LGN")
+
+filter_cs = Main.Utils.customDoG(0.5, 1.5, 0.9)
+out_frf = imfilter(stimulus, reflect(filter_cs))
+p_frf = plot(Gray.(Main.Utils.normalize(out_frf)), title = "Response center-surround filter")
+
+out_DoG = imfilter(out_frf, reflect(Kernel.DoG(1)))
+p_DoG = plot(Gray.(Main.Utils.normalize(out_DoG)), title = "Response DoG filter")
+
+plot(p_in, p_out, p_frf, p_DoG, layout = (2, 2))

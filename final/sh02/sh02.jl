@@ -88,3 +88,25 @@ img = Gray.(img)
 img_response = lgn(img)
 
 imshow(img_response)
+
+#################
+#               #
+#  Exercise 2   #
+#               #
+#################
+img = testimage("lake")
+stimulus = Gray.(img)
+
+p_in = plot(stimulus, title = "Stimulus")
+
+out = lgn(Float64.(stimulus))
+p_out = plot(Gray.(Main.Utils.normalize(out)), title = "Response LGN")
+
+filter_cs = Main.Utils.customDoG(0.5, 1.5, 0.9)
+out_frf = imfilter(stimulus, reflect(filter_cs))
+p_frf = plot(Gray.(Main.Utils.normalize(out_frf)), title = "Response center-surround filter")
+
+out_DoG = imfilter(out_frf, reflect(Kernel.DoG(1)))
+p_DoG = plot(Gray.(Main.Utils.normalize(out_DoG)), title = "Response DoG filter")
+
+plot(p_in, p_out, p_frf, p_DoG, layout = (2, 2))
