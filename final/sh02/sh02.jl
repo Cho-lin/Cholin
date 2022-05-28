@@ -24,21 +24,22 @@ function lgn(
     Vmax = 273.0,
     V_0 = -6,
 )
+    # calculate receptive field response
     filter_cs = Main.Utils.customDoG(σ_c, σ_s, k)
     L = imfilter(stimulus, reflect(filter_cs))
-    # L_norm = Main.Utils.normalize(L)
 
+    # calculate suppresive field response
     H = Main.Utils.customDoG(σ_u, σ_d, k_d)
-
-    #Gsf = Kernel.gaussian((σ_sf, σ_sf), size(stimulus))
     Gsf = Kernel.gaussian(σ_sf)
 
-    # Calculate c_local
+    # calculate c_local
     f = buf->sqrt(sum(dot(Gray.(imfilter(buf, reflect(H)).^2), Gray.(parent(Gsf)))))
     c_local = Main.Utils.normalize(mapwindow(f, stimulus, size(Gsf)))
 
+    # normalize response 
     V = Vmax * (L ./ (c50 .+ c_local))
 
+    # return rectified response
     return max.(V .- V_0, 0)
 end
 
@@ -46,7 +47,6 @@ end
 #  Exercise 1   #
 #################
 stimulus = Main.Utils.stimulus()
-# stimulus = testimage("cameraman")
 p_in = plot(Gray.(stimulus), title = "Stimulus")
 
 out = lgn(stimulus)
@@ -66,7 +66,7 @@ for i in 1:length(outline_diameter)
     outputs[i] = maximum(out)
 end
 
-p1 = plot(collect(zip(outline_diameter, outputs)), xlabel="Diameter [deg]", ylabel="Response [spikes/s]", label=false)
+p1 = plot(collect(zip(outline_diameter, outputs)), lw = 2, xlabel="Diameter [deg]", ylabel="Response [spikes/s]", label=false)
 
 # Plot response strength (varying contrast)
 contrasts = [0.01, 0.25, 0.50, 0.75, 1.0]
@@ -79,7 +79,7 @@ for i in 1:length(contrasts)
     outputs[i] = maximum(out)
 end
 
-p2 = plot(collect(zip(contrasts.*100, outputs)), xlabel="Contrast [%]", ylabel="Response [spikes/s]", label=false)
+p2 = plot(collect(zip(contrasts.*100, outputs)), lw = 2, xlabel="Contrast [%]", ylabel="Response [spikes/s]", label=false)
 
 plot(p1, p2, layout=(2, 1), plot_title="Response Strength")
 savefig("./response-strength.svg")
