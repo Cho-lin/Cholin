@@ -80,15 +80,6 @@ p2 = plot(collect(zip(contrasts, outputs)),
 
 plot(p1, p2, layout=(2, 1))
 
-
-# Exercise 2
-img = testimage("lake")
-img = Gray.(img)
-
-img_response = lgn(img)
-
-imshow(img_response)
-
 #################
 #               #
 #  Exercise 2   #
