@@ -29,9 +29,9 @@ uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
 
 [[deps.AxisArrays]]
 deps = ["Dates", "IntervalSets", "IterTools", "RangeArrays"]
-git-tree-sha1 = "cf6875678085aed97f52bfc493baaebeb6d40bcb"
+git-tree-sha1 = "1dd4d9f5beebac0c03446918741b1a03dc5e5788"
 uuid = "39de3d68-74b9-583c-8d2d-e117c070f3a9"
-version = "0.4.5"
+version = "0.4.6"
 
 [[deps.Base64]]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
@@ -68,9 +68,9 @@ version = "0.1.3"
 
 [[deps.ColorTypes]]
 deps = ["FixedPointNumbers", "Random"]
-git-tree-sha1 = "a985dc37e357a3b22b260a5def99f3530fb415d3"
+git-tree-sha1 = "0f4e115f6f34bbe43c19751c90a38b2f380637b9"
 uuid = "3da002f7-5984-5a60-b8a6-cbb66c0b333f"
-version = "0.11.2"
+version = "0.11.3"
 
 [[deps.ColorVectorSpace]]
 deps = ["ColorTypes", "FixedPointNumbers", "LinearAlgebra", "SpecialFunctions", "Statistics", "TensorCore"]
@@ -85,10 +85,10 @@ uuid = "5ae59095-9a9b-59fe-a467-6f913c188581"
 version = "0.12.8"
 
 [[deps.Compat]]
-deps = ["Base64", "Dates", "DelimitedFiles", "Distributed", "InteractiveUtils", "LibGit2", "Libdl", "LinearAlgebra", "Markdown", "Mmap", "Pkg", "Printf", "REPL", "Random", "SHA", "Serialization", "SharedArrays", "Sockets", "SparseArrays", "Statistics", "Test", "UUIDs", "Unicode"]
-git-tree-sha1 = "b153278a25dd42c65abbf4e62344f9d22e59191b"
+deps = ["Dates", "LinearAlgebra", "UUIDs"]
+git-tree-sha1 = "924cdca592bc16f14d2f7006754a621735280b74"
 uuid = "34da2185-b29b-5c13-b0c7-acf172513d20"
-version = "3.43.0"
+version = "4.1.0"
 
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -100,10 +100,10 @@ uuid = "9a962f9c-6df0-11e9-0e5d-c546b8b5ee8a"
 version = "1.10.0"
 
 [[deps.DataStructures]]
-deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
-git-tree-sha1 = "d1fff3a548102f48987a52a2e0d114fa97d730f0"
+deps = ["InteractiveUtils", "OrderedCollections"]
+git-tree-sha1 = "88d48e133e6d3dd68183309877eac74393daa7eb"
 uuid = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
-version = "0.18.13"
+version = "0.17.20"
 
 [[deps.Dates]]
 deps = ["Printf"]
@@ -114,14 +114,6 @@ deps = ["Artifacts", "Expat_jll", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "97f1325c10bd02b1cc1882e9c2bf6407ba630ace"
 uuid = "ee1fde0b-3d02-5ea6-8484-8dfef6360eab"
 version = "1.12.16+3"
-
-[[deps.DelimitedFiles]]
-deps = ["Mmap"]
-uuid = "8bb1440f-4735-579b-a4ab-409b98df4dab"
-
-[[deps.Distributed]]
-deps = ["Random", "Serialization", "Sockets"]
-uuid = "8ba89e20-285c-5b6f-9357-94700520ee1b"
 
 [[deps.DocStringExtensions]]
 deps = ["LibGit2"]
@@ -183,9 +175,9 @@ version = "2.68.3+2"
 
 [[deps.Graphics]]
 deps = ["Colors", "LinearAlgebra", "NaNMath"]
-git-tree-sha1 = "1c5a84319923bea76fa145d49e93aa4394c73fc2"
+git-tree-sha1 = "d61890399bc535850c4bf08e4e0d3a7ad0f21cbd"
 uuid = "a2bd30eb-e257-5431-a919-1863eab51364"
-version = "1.1.1"
+version = "1.1.2"
 
 [[deps.Graphite2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -236,10 +228,10 @@ uuid = "bc367c6b-8a6b-528e-b4bd-a4b897500b49"
 version = "0.9.8"
 
 [[deps.ImageView]]
-deps = ["AxisArrays", "Cairo", "Compat", "Graphics", "Gtk", "GtkObservables", "ImageBase", "ImageCore", "ImageMetadata", "RoundingIntegers", "StatsBase"]
-git-tree-sha1 = "d3aeb8f4c6b212cad334d2c650c3a88b836f2716"
+deps = ["AxisArrays", "Cairo", "Compat", "Graphics", "Gtk", "GtkObservables", "ImageBase", "ImageCore", "ImageMetadata", "MultiChannelColors", "RoundingIntegers", "StatsBase"]
+git-tree-sha1 = "31e22a2cf5fc7faaf43844847bb1d014dbf82b4e"
 uuid = "86fae568-95e7-573e-a6b2-d8a6b900c9ef"
-version = "0.11.0"
+version = "0.11.1"
 
 [[deps.InteractiveUtils]]
 deps = ["Markdown"]
@@ -408,9 +400,6 @@ git-tree-sha1 = "bf210ce90b6c9eed32d25dbcae1ebc565df2687f"
 uuid = "e1d29d7a-bbdc-5cf2-9ac0-f12de2c33e28"
 version = "1.0.2"
 
-[[deps.Mmap]]
-uuid = "a63ad114-7e13-5084-954f-fe012c677804"
-
 [[deps.MosaicViews]]
 deps = ["MappedArrays", "OffsetArrays", "PaddedViews", "StackViews"]
 git-tree-sha1 = "b34e3bc3ca7c94914418637cb10cc4d1d80d877d"
@@ -420,10 +409,16 @@ version = "0.3.3"
 [[deps.MozillaCACerts_jll]]
 uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
 
+[[deps.MultiChannelColors]]
+deps = ["ColorTypes", "ColorVectorSpace", "Colors", "Compat", "FixedPointNumbers", "LinearAlgebra", "Reexport", "Requires"]
+git-tree-sha1 = "d93bbb3cf7891afb7f003b645e2dbc9b9d5b5bde"
+uuid = "d4071afc-4203-49ee-90bc-13ebeb18d604"
+version = "0.1.2"
+
 [[deps.NaNMath]]
-git-tree-sha1 = "b086b7ea07f8e38cf122f5016af580881ac914fe"
+git-tree-sha1 = "737a5957f387b17e74d4ad2f440eb330b39a62c5"
 uuid = "77ba4419-2d1f-58cd-9bb1-8ffee604a2e3"
-version = "0.3.7"
+version = "1.0.0"
 
 [[deps.NetworkOptions]]
 uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
@@ -435,9 +430,9 @@ version = "0.5.1"
 
 [[deps.OffsetArrays]]
 deps = ["Adapt"]
-git-tree-sha1 = "b4975062de00106132d0b01b5962c09f7db7d880"
+git-tree-sha1 = "e7fa2526bf068ad5cbfe9ba7e8a9bbd227b3211b"
 uuid = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"
-version = "1.12.5"
+version = "1.12.1"
 
 [[deps.OpenBLAS_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
@@ -514,6 +509,12 @@ git-tree-sha1 = "45e428421666073eab6f2da5c9d310d99bb12f9b"
 uuid = "189a3867-3050-52da-a836-e630ba90ab69"
 version = "1.2.2"
 
+[[deps.Requires]]
+deps = ["UUIDs"]
+git-tree-sha1 = "838a3a4188e2ded87a4f9f184b4b0d78a1e91cb7"
+uuid = "ae029012-a4dd-5104-9daa-d747884805df"
+version = "1.3.0"
+
 [[deps.RoundingIntegers]]
 git-tree-sha1 = "99acd97f396ea71a5be06ba6de5c9defe188a778"
 uuid = "d5f540fe-1c90-5db3-b776-2e2f362d9394"
@@ -524,10 +525,6 @@ uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 
 [[deps.Serialization]]
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
-
-[[deps.SharedArrays]]
-deps = ["Distributed", "Mmap", "Random", "Serialization"]
-uuid = "1a1011a3-84de-559e-8e89-a11a2f7dc383"
 
 [[deps.SimpleTraits]]
 deps = ["InteractiveUtils", "MacroTools"]
@@ -615,9 +612,9 @@ version = "1.25.0+0"
 
 [[deps.XML2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Pkg", "Zlib_jll"]
-git-tree-sha1 = "1acf5bdf07aa0907e0a37d3718bb88d4b687b74a"
+git-tree-sha1 = "58443b63fb7e465a8a7210828c91c08b92132dff"
 uuid = "02c8fc9c-b97f-50b9-bbe4-9be30ff0a78a"
-version = "2.9.12+0"
+version = "2.9.14+0"
 
 [[deps.XSLT_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libgcrypt_jll", "Libgpg_error_jll", "Libiconv_jll", "Pkg", "XML2_jll", "Zlib_jll"]
